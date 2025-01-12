@@ -1,4 +1,5 @@
 import "./App.css";
+import Movies from "./components/movies";
 function App() {
   return (
     <>
@@ -6,6 +7,7 @@ function App() {
         <h1>
           <i className="bi bi-film"></i> Vidly
         </h1>
+        <Movies />
       </main>
     </>
   );

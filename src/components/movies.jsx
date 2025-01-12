@@ -1,15 +1,30 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
+import Like from "./common/Like";
 
 class Movies extends Component {
   //   initialize movies using fakeMovieService
   state = {
     movies: getMovies(),
   };
+
   handleDelete = (movie) => {
     // filter the passed movie
     const newMovies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies: newMovies });
+  };
+
+  handleLike = (movie) => {
+    // make a copy of movies array
+    const movies = [...this.state.movies];
+    // get index of passed movie
+    const index = movies.indexOf(movie);
+    // get all properties
+    movies[index] = { ...movies[index] };
+    // set toggle like
+    movies[index].liked = !movies[index].liked;
+    // update state to reflect in ui
+    this.setState({ movies });
   };
 
   render() {
@@ -44,6 +59,12 @@ class Movies extends Component {
                 <td>{movie.genre.name}</td>
                 <td>{movie.numberInStock}</td>
                 <td>{movie.dailyRentalRate}</td>
+                <td>
+                  <Like
+                    liked={movie.liked}
+                    onClick={() => this.handleLike(movie)}
+                  />
+                </td>
                 <td>
                   <button
                     onClick={() => this.handleDelete(movie)}

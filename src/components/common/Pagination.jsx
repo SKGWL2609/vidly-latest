@@ -1,29 +1,31 @@
 import React from "react";
+import _ from "lodash";
 
 // Interface
 // input: page number, page size,
 
 const Pagination = (props) => {
+  const { itemsCount, pageSize, onPageChange, currentPage } = props;
+  const pagesCount = Math.ceil(itemsCount / pageSize);
+  // [1,2,3..].map()
+  // [1,..., pagesCount].map()
+  // use loadsh
+
+  if (pagesCount === 1) return null;
+  const pages = _.range(1, pagesCount + 1);
+
   return (
     <>
       <nav>
         <ul className="pagination">
-          <li className="page-item">
+          {pages.map(page =>
+            <li className="page-item" key={page}>
             <a className="page-link" href="#">
-              1
+             {page}
             </a>
           </li>
+          )}
 
-          <li className="page-item">
-            <a className="page-link active" href="#">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              3
-            </a>
-          </li>
         </ul>
       </nav>
     </>

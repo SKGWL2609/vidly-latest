@@ -7,7 +7,8 @@ class Movies extends Component {
   //   initialize movies using fakeMovieService
   state = {
     movies: getMovies(),
-    pageSize: 4
+    pageSize: 4,
+    currentPage: 1,
   };
 
   handleDelete = (movie) => {
@@ -29,11 +30,9 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handlePageChange = page => {
-console.log('Clicked', page);
-
-  }
-
+  handlePageChange = (page) => {
+    console.log("Clicked", page);
+  };
 
   render() {
     const { length: movieCount } = this.state.movies;
@@ -85,7 +84,12 @@ console.log('Clicked', page);
             ))}
           </tbody>
         </table>
-        <Pagination itemsCount={movieCount} pageSize={this.state.pageSize} onPageChange={this.handlePageChange}/>
+        <Pagination
+          itemsCount={movieCount}
+          pageSize={this.state.pageSize}
+          onPageChange={this.handlePageChange}
+
+        />
       </>
     );
   }

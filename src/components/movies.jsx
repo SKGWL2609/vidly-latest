@@ -32,6 +32,7 @@ class Movies extends Component {
 
   handlePageChange = (page) => {
     console.log("Clicked", page);
+    this.setState({ currentPage: page });
   };
 
   render() {
@@ -87,8 +88,8 @@ class Movies extends Component {
         <Pagination
           itemsCount={movieCount}
           pageSize={this.state.pageSize}
+          currentPage = {this.state.currentPage}
           onPageChange={this.handlePageChange}
-
         />
       </>
     );

@@ -4,7 +4,7 @@ function App() {
   return (
     <>
       <main className="container">
-        <h1>
+        <h1 className="text-center">
           <i className="bi bi-film"></i> Vidly
         </h1>
         <Movies />

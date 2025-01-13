@@ -48,22 +48,16 @@ class Movies extends Component {
   };
 
   handlePageChange = (page) => {
-    // console.log("Clicked", page);
+
     this.setState({ currentPage: page });
   };
 
   handleGenreSelect = (genre) => {
     this.setState({ selectedGenre: genre, currentPage: 1 });
-    // console.log(genre);
+
   };
-  handleSort = (path) => {
-    const sortColumn = {...this.state.sortColumn}
-    if(sortColumn.path === path)
-      sortColumn.order = (sortColumn.order === 'asc')? 'desc': 'asc'
-    else{
-      sortColumn.path = path
-      sortColumn.order = 'asc'
-    }
+  handleSort = sortColumn => {
+
     this.setState({ sortColumn });
   };
 
@@ -102,9 +96,7 @@ class Movies extends Component {
 
     return (
       <>
-        <div className="row">
-          <hr />
-
+        <div className="row ">
           <div className="col-3">
             <ListGroup
               items={this.state.genres}
@@ -115,12 +107,14 @@ class Movies extends Component {
 
           <div className="col">
             {/* moved in movies table */}
-            <p className="text-center fs-5">
-              Showing <strong>{[filteredMovies.length]}</strong> movies in
+            <p className="text-end fs-5">
+              Showing <strong>({filteredMovies.length})</strong> movies in
               database.
+
             </p>
             <MoviesTable
               movies={movies}
+              sortColumn = {sortColumn}
               onLike={this.handleLike}
               onDelete={this.handleDelete}
               onSort={this.handleSort}

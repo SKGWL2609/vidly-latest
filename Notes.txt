@@ -1,0 +1,8 @@
+==================
+    TOPICS:
+==================
+-> Pass Data
+-> Raise and Handle Events
+-> Multiple Components in Sync
+-> Functional Components
+-> LifeCycle Hooks

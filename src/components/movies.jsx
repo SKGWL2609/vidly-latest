@@ -20,7 +20,7 @@ class Movies extends Component {
   };
 
   componentDidMount() {
-    const genres = [{ name: "All Genres", _id: "" }, ...getGenres()];
+    const genres = [{ name: "All Genres", _id: ""}, ...getGenres()];
 
     this.setState({
       movies: getMovies(),
@@ -57,7 +57,6 @@ class Movies extends Component {
 
   };
   handleSort = sortColumn => {
-
     this.setState({ sortColumn });
   };
 

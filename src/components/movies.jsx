@@ -18,9 +18,11 @@ class Movies extends Component {
   };
 
   componentDidMount() {
+    const genres = [{name: 'All Genres', _id:null}, ...getGenres()]
+
     this.setState({
       movies: getMovies(),
-      genres: getGenres(),
+      genres,
     });
   }
 
@@ -49,7 +51,7 @@ class Movies extends Component {
   };
 
   handleGenreSelect = (genre) => {
-    this.setState({ selectedGenre: genre });
+    this.setState({ selectedGenre: genre, currentPage: 1 });
     // console.log(genre);
   };
 
@@ -70,7 +72,7 @@ class Movies extends Component {
       );
 
     // filter movies based on genre
-    const filteredMovies = selectedGenre
+    const filteredMovies =  selectedGenre && selectedGenre._id
       ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
       : allMovies;
 

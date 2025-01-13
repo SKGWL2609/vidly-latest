@@ -1,13 +1,23 @@
 import React from "react";
 
-const ListGroup = ({ items, onItemSelect, textProperty='name', valueProperty='_id' }) => {
+const ListGroup = ({
+  items,
+  selectedItem,
+  onItemSelect,
+  textProperty = "name",
+  valueProperty = "_id",
+}) => {
   return (
     <ul className="list-group list-group">
       {items.map((item) => (
         <li
           key={item[valueProperty]}
           style={{ cursor: "pointer" }}
-          className="list-group-item fw-bold"
+          className={
+            item === selectedItem
+              ? "list-group-item fw-bold active"
+              : "list-group-item fw-bold"
+          }
           onClick={() => onItemSelect(item)}
         >
           {item[textProperty]}

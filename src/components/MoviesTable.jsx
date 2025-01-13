@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Like from "./common/Like";
-import TableHeader from "./common/TableHeader";
-import TableBody from "./common/TableBody";
+import Table from "./common/Table";
 
 class MoviesTable extends Component {
   // raiseSort() moved to separate component
@@ -12,16 +11,18 @@ class MoviesTable extends Component {
     { path: "dailyRentalRate", label: "Rate" },
     {
       key: "like",
-      content: movie => (
+      content: (movie) => (
         <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
       ),
     },
     {
       key: "delete",
-      content: movie => (
+      content: (movie) => (
         <button
           onClick={() => this.props.onDelete(movie)}
-          className="btn btn-sm btn-danger">Delete
+          className="btn btn-sm btn-danger"
+        >
+          Delete
         </button>
       ),
     },
@@ -29,17 +30,15 @@ class MoviesTable extends Component {
 
   render() {
     const { movies, onSort, sortColumn } = this.props;
-
+    
     return (
-      <table className="table">
-        <TableHeader
-          columns={this.columns}
-          sortColumn={sortColumn}
-          onSort={onSort}
-        />
-        <TableBody data={movies} columns={this.columns} />
-      </table>
-    );
+      <Table
+        columns={this.columns}
+        data={movies}
+        sortColumn={sortColumn}
+        onSort={onSort}
+      />
+    )
   }
 }
 

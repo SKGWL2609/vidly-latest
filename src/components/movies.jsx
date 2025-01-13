@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
@@ -15,10 +16,11 @@ class Movies extends Component {
     genres: [],
     pageSize: 4,
     currentPage: 1,
+    sortColumn: { path: "title", order: "asc" },
   };
 
   componentDidMount() {
-    const genres = [{ name: "All Genres", _id: '' }, ...getGenres()];
+    const genres = [{ name: "All Genres", _id: "" }, ...getGenres()];
 
     this.setState({
       movies: getMovies(),
@@ -54,9 +56,16 @@ class Movies extends Component {
     this.setState({ selectedGenre: genre, currentPage: 1 });
     // console.log(genre);
   };
-  handleSort = path => {
-    console.log(path)
-  }
+  handleSort = (path) => {
+    const sortColumn = {...this.state.sortColumn}
+    if(sortColumn.path === path)
+      sortColumn.order = (sortColumn.order === 'asc')? 'desc': 'asc'
+    else{
+      sortColumn.path = path
+      sortColumn.order = 'asc'
+    }
+    this.setState({ sortColumn });
+  };
 
   render() {
     const { length: movieCount } = this.state.movies;
@@ -64,6 +73,7 @@ class Movies extends Component {
       pageSize,
       currentPage,
       selectedGenre,
+      sortColumn,
       movies: allMovies,
     } = this.state;
 
@@ -74,14 +84,21 @@ class Movies extends Component {
         </p>
       );
 
+    // Order => filter -> sort -> paginate
     // filter movies based on genre
     const filteredMovies =
       selectedGenre && selectedGenre._id
         ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
         : allMovies;
 
+    const sortedMovies = _.orderBy(
+      filteredMovies,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
+
     // Paginate movies
-    const movies = paginate(filteredMovies, currentPage, pageSize);
+    const movies = paginate(sortedMovies, currentPage, pageSize);
 
     return (
       <>
@@ -106,7 +123,7 @@ class Movies extends Component {
               movies={movies}
               onLike={this.handleLike}
               onDelete={this.handleDelete}
-              onSort = {this.handleSort}
+              onSort={this.handleSort}
             />
 
             <Pagination

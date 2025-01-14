@@ -1,15 +1,25 @@
 import "./App.css";
 import Movies from "./components/movies";
+import Customers from "./components/Customers";
+import Rentals from "./components/Rentals";
+import NotFound from "./components/NotFound";
+import NavBar from "./components/NavBar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 function App() {
   return (
-    <>
-      <main className="container">
-        <h1 className="text-center">
-          <i className="bi bi-film"></i> Vidly
-        </h1>
-        <Movies />
-      </main>
-    </>
+    <BrowserRouter>
+      <>
+        <NavBar />
+        <main className="container">
+          <Routes>
+            <Route path='/' element={<Movies />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/rentals" element={<Rentals />} />
+          </Routes>
+        </main>
+      </>
+    </BrowserRouter>
   );
 }
 
